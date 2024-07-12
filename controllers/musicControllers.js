@@ -25,12 +25,7 @@ music.get('/:id', async (req, res) => {
 
 music.post("/", checkCreateValidations, async (req, res) => {
     const newSong = await createSong(req.body)
-
-    if(newSong.id){
-        res.status(200).json(newSong)
-    }else {
-        res.status(500).json({error: "Internal Server Error"})
-    }
+    res.status(200).json(newSong) 
 })
 
 module.exports = music;
