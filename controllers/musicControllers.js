@@ -25,7 +25,7 @@ music.get('/:id', async (req, res) => {
 
 music.post("/", checkCreateValidations, async (req, res) => {
     const newSong = await createSong(req.body)
-    res.status(200).json(newSong) 
+    res.status(200).json(newSong)  
 })
 
 module.exports = music;
