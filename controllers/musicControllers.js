@@ -25,10 +25,10 @@ music.get('/:id', async (req, res) => {
 
 music.post("/", checkCreateValidations, async (req, res) => {
     const newSong = await createSong(req.body)
-    res.status(200).json(newSong)  
+    res.status(201).json(newSong)  
 })
 
-music.post("/:id", async (req, res) => {
+music.put("/:id", async (req, res) => {
     const { id } = req.params
     const updatedSong = await updateSong(id, req.body)
 
@@ -42,7 +42,11 @@ music.post("/:id", async (req, res) => {
 music.delete("/:id", async (req, res) => {
     const { id } = req.params
     const deletedSong = await deleteSong(id)
-    res.status(200).json(deletedSong)
+    if(deletedSong.id){
+        res.status(200).json({ message : "Success deleting song"})
+    }else {
+        req.status(500).json({ error : "Internal Server Error"})
+    }
 })
 
 module.exports = music;
