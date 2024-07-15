@@ -1,6 +1,6 @@
 const express = require("express");
 const music = express.Router();
-const { getAllSongs, getSong, createSong } = require("../queries/tunes")
+const { getAllSongs, getSong, createSong, updateSong, deleteSong } = require("../queries/tunes")
 const { checkCreateValidations } = require("../validations/checkSongs")
 
 music.get('/', async (req, res) => {
@@ -26,6 +26,23 @@ music.get('/:id', async (req, res) => {
 music.post("/", checkCreateValidations, async (req, res) => {
     const newSong = await createSong(req.body)
     res.status(200).json(newSong)  
+})
+
+music.post("/:id", async (req, res) => {
+    const { id } = req.params
+    const updatedSong = await updateSong(id, req.body)
+
+    if(updatedSong.id){
+        res.status(200).json(updatedSong)
+    }else {
+        res.status(500).json({ error: "Invalid ID"})
+    }
+})
+
+music.delete("/:id", async (req, res) => {
+    const { id } = req.params
+    const deletedSong = await deleteSong(id)
+    res.status(200).json(deletedSong)
 })
 
 module.exports = music;
