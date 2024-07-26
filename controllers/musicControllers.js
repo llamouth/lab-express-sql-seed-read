@@ -35,6 +35,7 @@ music.put("/:id", async (req, res) => {
     if(updatedSong.id){
         res.status(200).json(updatedSong)
     }else {
+        console.log(updatedSong)
         res.status(500).json({ error: "Invalid ID"})
     }
 })
