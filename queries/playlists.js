@@ -1,4 +1,3 @@
-const playlist = require("../controllers/playlistController")
 const db = require("../db/dbConfig")
 
 const getAllPlaylist = async () => {
